@@ -29,11 +29,14 @@ class _PokemonListPageState extends State<PokemonListPage> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          middle: Text("POKÉDEX"),
-          backgroundColor: Color(0xffFAF1AC),
+          middle: Text(
+            "POKÉDEX",
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.blueGrey,
         ),
         child: Container(
-            color: Color(0xffFAF1AC),
+            color: Colors.blueGrey.withOpacity(0.8),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: dataSource.isNotEmpty

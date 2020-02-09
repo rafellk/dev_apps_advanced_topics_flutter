@@ -44,7 +44,13 @@ class _PokemonDetailState extends State<PokemonDetail> {
                     Text("Weight: ${pokemonResponseModel.weight}"),
                   ],
                 ))
-            : Container());
+            : Container(
+                child: Center(
+                  child: CupertinoActivityIndicator(
+                    animating: true,
+                  ),
+                ),
+              ));
   }
 
   _fetchPokemonWithName() {

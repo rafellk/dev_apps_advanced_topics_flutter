@@ -16,11 +16,14 @@ class PokemonGridPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          middle: Text("POKÉDEX"),
-          backgroundColor: Color(0xffFAF1AC),
+          middle: Text(
+            "POKÉDEX",
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.blueGrey,
         ),
         child: Container(
-          color: Color(0xffFAF1AC),
+          color: Colors.blueGrey.withOpacity(0.8),
           child: GridView.count(
             crossAxisCount: 4,
             crossAxisSpacing: 8,

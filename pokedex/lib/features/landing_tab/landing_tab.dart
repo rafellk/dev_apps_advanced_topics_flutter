@@ -9,9 +9,9 @@ class LandingTabPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
         tabBar: CupertinoTabBar(
-          backgroundColor: Color(0xffF9EFA8),
-          inactiveColor: Colors.grey,
-          activeColor: Colors.black87,
+          backgroundColor: Colors.blueGrey,
+          inactiveColor: Colors.grey.withOpacity(0.8),
+          activeColor: Colors.white,
           items: [
             BottomNavigationBarItem(
                 title: Text("List"), icon: Icon(CupertinoIcons.news)),
@@ -19,16 +19,16 @@ class LandingTabPage extends StatelessWidget {
                 title: Text("Grid"), icon: Icon(CupertinoIcons.news)),
           ],
         ),
-        tabBuilder: (BuildContext context, int index) {
+        tabBuilder: (context, index) {
           switch (index) {
             case 0:
               return CupertinoTabView(
                   builder: (BuildContext context) =>
                       PokemonListPage(PokemonServiceImpl()));
-            case 1:
-              return CupertinoTabView(
-                  builder: (BuildContext context) => PokemonGridPage());
           }
+
+          return CupertinoTabView(
+              builder: (BuildContext context) => PokemonGridPage());
         });
   }
 }
