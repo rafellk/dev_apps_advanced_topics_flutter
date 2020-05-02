@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class BaseService {
@@ -9,15 +10,25 @@ class BaseService {
 }
 
 abstract class PokemonService {
-  Future<http.Response> fetchAllKantoPokemon();
+  Future<dynamic> fetchAllKantoPokemon();
   Future<http.Response> fetchPokemonWithName({String name});
   String imageNameForID({String id});
 }
 
 class PokemonServiceImpl extends BaseService implements PokemonService {
   @override
-  Future<http.Response> fetchAllKantoPokemon() {
-    return http.get(formURL("/pokemon?limit=151"));
+  Future<dynamic> fetchAllKantoPokemon() async {
+    return Future<dynamic>(() async {
+      var json;
+
+      await http.get(formURL("/pokemon?limit=151")).then((response) {
+        json = jsonDecode(response.body);
+      }).catchError((error) {
+        throw error;
+      });
+
+      return json;
+    });
   }
 
   @override

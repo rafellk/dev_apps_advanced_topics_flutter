@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pokedex/features/pokemon_grid/pokemon_grid.dart';
-import 'package:pokedex/features/pokemon_list/pokemon_list.dart';
-import 'package:pokedex/services/pokemon_service.dart';
+import 'package:pokedex/features/pokemon_list/pokemon_list_coordinator.dart';
 
 class LandingTabPage extends StatelessWidget {
   @override
@@ -24,7 +23,7 @@ class LandingTabPage extends StatelessWidget {
             case 0:
               return CupertinoTabView(
                   builder: (BuildContext context) =>
-                      PokemonListPage(PokemonServiceImpl()));
+                      PokemonListCoordinator().widget());
           }
 
           return CupertinoTabView(

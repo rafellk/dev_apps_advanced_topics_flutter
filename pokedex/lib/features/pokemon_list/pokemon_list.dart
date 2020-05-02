@@ -1,28 +1,29 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pokedex/features/pokemon_list/pokemon_list_cell.dart';
-import 'package:pokedex/models/pokemon.dart';
-import 'package:pokedex/services/pokemon_service.dart';
+import 'package:pokedex/features/pokemon_list/pokemon_list_view_model.dart';
 
 // https://pokeapi.co
 class PokemonListPage extends StatefulWidget {
-  PokemonService service = PokemonServiceImpl();
+  final PokemonListViewModel viewModel;
 
-  PokemonListPage([this.service]);
+  PokemonListPage({this.viewModel});
 
   @override
   _PokemonListPageState createState() => _PokemonListPageState();
 }
 
 class _PokemonListPageState extends State<PokemonListPage> {
-  List<AllPokemonReponse> dataSource = [];
+  PokemonListViewModel _viewModel;
 
   @override
   initState() {
     super.initState();
-    _feedDataSource();
+    _viewModel = widget.viewModel;
+    _viewModel.didUpdate = () {
+      setState(() {});
+    };
+    _viewModel.feedDataSource();
   }
 
   @override
@@ -30,54 +31,32 @@ class _PokemonListPageState extends State<PokemonListPage> {
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
           middle: Text(
-            "POKÉDEX",
+            _viewModel.navigationTitle,
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.blueGrey,
         ),
         child: Container(
-            color: Colors.blueGrey.withOpacity(0.8),
+            color: Colors.blueGrey.withOpacity(_Constants.opacity),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: dataSource.isNotEmpty
+              padding: const EdgeInsets.all(_Constants.defaultPadding),
+              child: _viewModel.dataSource.isNotEmpty
                   ? ListView(
-                      children: dataSource.map((pokemon) {
+                      children: _viewModel.dataSource.map((pokemon) {
                         return Container(
-                            height: 50,
+                            height: _Constants.cellHeight,
                             child: PokemonListPageCell(
                               model: pokemon,
                             ));
                       }).toList(),
                     )
-                  : Container(),
+                  : Container(/*indicator*/),
             )));
   }
+}
 
-  _feedDataSource() {
-    widget.service.fetchAllKantoPokemon().then((response) {
-      var json = jsonDecode(response.body);
-      List<AllPokemonReponse> pokemonList = [];
-      var list = json["results"];
-
-      if (list != null) {
-        for (var pokemonJson in list) {
-          var pokemonResponse = AllPokemonReponse.fromMappedJson(pokemonJson);
-
-          if (pokemonJson["url"] != null) {
-            var split = pokemonJson["url"].toString().split("/");
-            split.removeLast();
-
-            var id = split.last;
-            pokemonResponse.imageName = widget.service.imageNameForID(id: id);
-          }
-
-          pokemonList.add(pokemonResponse);
-        }
-
-        setState(() {
-          dataSource = pokemonList;
-        });
-      }
-    });
-  }
+class _Constants {
+  static const double cellHeight = 50;
+  static const double defaultPadding = 8.0;
+  static const double opacity = 0.8;
 }

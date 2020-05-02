@@ -1,30 +1,40 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:pokedex/main.dart';
+import 'package:pokedex/features/onboarding/onboarding.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+  // group("Onboarding widget tests", () {
+  //   testWidgets(
+  //       'Navigate to Onboarding second page and land back on the first page',
+  //       (WidgetTester tester) async {
+  //     var onboardingPage = OnboardingPage();
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  //     await tester.pumpWidget(CupertinoApp(home: onboardingPage));
+  //     expect(find.text("Got catch them all"), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  //     var element = find.byKey(Key("onboarding_page_view"));
+  //     await tester.drag(element, Offset(-500, 0));
+  //     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
-  });
+  //     expect(find.text("All Pokémon"), findsOneWidget);
+
+  //     await tester.drag(element, Offset(500, 0));
+  //     await tester.pump();
+
+  //     expect(find.text("Got catch them all"), findsOneWidget);
+  //   });
+
+  //   testWidgets('Reaches the last onboarding page',
+  //       (WidgetTester tester) async {
+  //     var onboardingPage = OnboardingPage();
+  //     await tester.pumpWidget(CupertinoApp(home: onboardingPage));
+
+  //     var element = find.byKey(Key("onboarding_page_view"));
+  //     await tester.drag(element, Offset(-500, 0));
+  //     await tester.drag(element, Offset(-500, 0));
+  //     await tester.drag(element, Offset(-500, 0));
+
+  //     expect(find.byKey(Key("button")), findsOneWidget);
+  //   });
+  // });
 }

@@ -52,6 +52,7 @@ class OnboardingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         child: PageView(
+      key: Key("onboarding_page_view"),
       children: dataSource,
     ));
   }

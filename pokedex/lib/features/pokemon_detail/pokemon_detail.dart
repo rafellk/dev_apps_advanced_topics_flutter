@@ -154,7 +154,10 @@ class SmoothImageLoader extends StatelessWidget {
   double placeholderHeight;
   String imageName;
 
-  SmoothImageLoader({this.placeholderHeight = 50, this.imageName});
+  SmoothImageLoader({
+    this.placeholderHeight = 50,
+    this.imageName,
+  });
 
   Widget build(BuildContext context) {
     return Stack(

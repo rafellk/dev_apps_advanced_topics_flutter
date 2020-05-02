@@ -61,6 +61,7 @@ class OnboardingPageChild extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         model.mainTitle,
+                        key: Key(OnboardingPageChildModelKeys.mainTitleKey),
                         style: TextStyle(fontSize: 30, color: Colors.white),
                       ),
                       Padding(
@@ -72,6 +73,7 @@ class OnboardingPageChild extends StatelessWidget {
                       ),
                       model.shouldPresentButton
                           ? CupertinoButton(
+                            key: Key("button"),
                               child: Text(model.buttonTitle),
                               color: Colors.black,
                               onPressed: () {
@@ -86,4 +88,8 @@ class OnboardingPageChild extends StatelessWidget {
       ],
     ));
   }
+}
+
+class OnboardingPageChildModelKeys {
+  static String mainTitleKey = "onboarding_page_child_main_title_key";
 }
