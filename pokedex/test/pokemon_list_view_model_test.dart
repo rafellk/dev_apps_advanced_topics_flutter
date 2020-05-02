@@ -56,18 +56,53 @@ void main() {
   });
 
   test('Feed data source with real network', () async {
-    viewModel.feedDataSource();
-    await Future.delayed(Duration(seconds: 2)).then((value) {
-      expect(viewModel.dataSource.length, 151);
-    });
+    int didUpdated = 0;
+
+    viewModel.didUpdate = () {
+      didUpdated++;
+    };
+
+    await viewModel.feedDataSource();
+    expect(viewModel.state, PokemonListState.feededDatasource);
+
+    expect(viewModel.dataSource.length, 151);
+    expect(didUpdated, 2);
   });
 
   test('Feed data source with mocked network', () async {
+    int didUpdated = 0;
+    viewModel = PokemonListViewModel(service: MockedPokemonService());
+
+    viewModel.didUpdate = () {
+      didUpdated++;
+    };
+
+    await viewModel.feedDataSource();
+    expect(viewModel.state, PokemonListState.feededDatasource);
+
+    expect(viewModel.dataSource.length, 5);
+    expect(didUpdated, 2);
+  });
+
+  test('Did update for loading state', () {
     viewModel = PokemonListViewModel(service: MockedPokemonService());
     viewModel.feedDataSource();
+    expect(viewModel.state, PokemonListState.loading);
+  });
 
-    await Future.delayed(Duration(seconds: 2)).then((value) {
-      expect(viewModel.dataSource.length, 5);
-    });
+  test('Did update for error state', () async {
+    int didUpdated = 0;
+
+    final service = MockedPokemonService(state: MockedState.error);
+    viewModel = PokemonListViewModel(service: service);
+
+    viewModel.didUpdate = () {
+      didUpdated++;
+    };
+
+    await viewModel.feedDataSource();
+
+    expect(viewModel.state, PokemonListState.error);
+    expect(didUpdated, 2);
   });
 }

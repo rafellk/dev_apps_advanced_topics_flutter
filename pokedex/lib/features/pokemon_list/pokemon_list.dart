@@ -39,19 +39,31 @@ class _PokemonListPageState extends State<PokemonListPage> {
         child: Container(
             color: Colors.blueGrey.withOpacity(_Constants.opacity),
             child: Padding(
-              padding: const EdgeInsets.all(_Constants.defaultPadding),
-              child: _viewModel.dataSource.isNotEmpty
-                  ? ListView(
-                      children: _viewModel.dataSource.map((pokemon) {
-                        return Container(
-                            height: _Constants.cellHeight,
-                            child: PokemonListPageCell(
-                              model: pokemon,
-                            ));
-                      }).toList(),
-                    )
-                  : Container(/*indicator*/),
-            )));
+                padding: const EdgeInsets.all(_Constants.defaultPadding),
+                child: _buildUIForState())));
+  }
+
+  Widget _buildUIForState() {
+    switch (_viewModel.state) {
+      case PokemonListState.feededDatasource:
+        return ListView(
+            children: _viewModel.dataSource.map((pokemon) {
+          return Container(
+              height: _Constants.cellHeight,
+              child: PokemonListPageCell(
+                model: pokemon,
+              ));
+        }).toList());
+        break;
+      case PokemonListState.loading:
+        return Container(child: Center(child: CupertinoActivityIndicator()));
+        break;
+      case PokemonListState.error:
+        return Container(
+            child: Center(child: Text("An error occurred. Try again later!!")));
+    }
+
+    return null;
   }
 }
 

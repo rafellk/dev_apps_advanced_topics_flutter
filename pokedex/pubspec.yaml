@@ -27,6 +27,7 @@ dependencies:
   transparent_image: ^1.0.0
 
 dev_dependencies:
+  test:
   flutter_test:
     sdk: flutter
   flutter_driver:
