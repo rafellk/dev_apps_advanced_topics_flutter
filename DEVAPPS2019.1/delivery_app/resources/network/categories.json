@@ -1,0 +1,28 @@
+{
+    "categories": [
+        {
+            "title": "Vegetables",
+            "imageURL": "https://homepages.cae.wisc.edu/~ece533/images/barbara.png",
+            "items": [
+                {
+                    "title": "Boston Lettuce",
+                    "imageURL": "https://homepages.cae.wisc.edu/~ece533/images/peppers.png",
+                    "price": 1.10,
+                    "unit": "kg"
+                }
+            ]
+        },
+        {
+            "title": "Fruits",
+            "imageURL": "https://homepages.cae.wisc.edu/~ece533/images/sails.png",
+            "items": [
+                {
+                    "title": "Boston Lettuce",
+                    "imageURL": "https://homepages.cae.wisc.edu/~ece533/images/tulips.png",
+                    "price": 1.10,
+                    "unit": "kg"
+                }
+            ]
+        }
+  ]
+}
