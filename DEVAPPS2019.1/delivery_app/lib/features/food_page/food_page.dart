@@ -3,10 +3,16 @@ import 'package:delivery_app/common/components/default_background/default_backgr
 import 'package:delivery_app/common/components/default_navigation/default_navigation.dart';
 import 'package:delivery_app/common/components/search_text_field/search_text_field.dart';
 import 'package:delivery_app/common/styles/styles.dart';
+import 'package:delivery_app/models/category.dart';
+import 'package:delivery_app/models/item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FoodPage extends StatelessWidget {
+  final Category category;
+
+  FoodPage({this.category});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,9 +32,9 @@ class FoodPage extends StatelessWidget {
                   child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: ListView.builder(
-                    itemCount: 10,
+                    itemCount: category.items.length,
                     itemBuilder: (context, index) {
-                      return FoodListItem();
+                      return FoodListItem(item: category.items[index]);
                     }),
               ))
             ],
@@ -40,6 +46,10 @@ class FoodPage extends StatelessWidget {
 }
 
 class FoodListItem extends StatelessWidget {
+  final Item item;
+
+  const FoodListItem({Key key, this.item}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var imageWidth = (MediaQuery.of(context).size.width - 60) / 2;
@@ -55,11 +65,7 @@ class FoodListItem extends StatelessWidget {
               height: imageWidth * 0.72,
               child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(8)),
-                  child: Image.asset(
-                    "resources/images/food_image.png",
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ))),
+                  child: Image.network(item.imageURL))),
           Container(
             width: imageWidth,
             height: imageWidth * 0.72,
@@ -67,14 +73,14 @@ class FoodListItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Boston Lettuce", style: Styles.primaryText),
+                Text(item.title, style: Styles.primaryText),
                 Row(
                   children: [
                     Text(
-                      "1.10",
+                      "${item.price}",
                       style: Styles.bodyText,
                     ),
-                    Text("\$ / piece", style: Styles.secondaryText)
+                    Text("\$ / ${item.unit}", style: Styles.secondaryText)
                   ],
                 ),
                 Row(

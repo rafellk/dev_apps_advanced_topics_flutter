@@ -20,11 +20,32 @@ class HomePage extends StatelessWidget {
           title: Text("Home"),
         ),
         body: ListView.builder(
-            itemCount: dataSource.length,
+            itemCount: dataSource.length + 1,
             itemBuilder: (context, index) {
+              if (index == dataSource.length) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Card(
+                    color: Colors.redAccent,
+                    child: Container(
+                      height: 50,
+                      child: Center(
+                        child: Text(
+                          "Sign Out",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }
               var value = dataSource[index];
-              return ListTile(
-                title: Text(value),
+              return Card(
+                child: ListTile(
+                  title: Text(value),
+                ),
               );
             }));
   }

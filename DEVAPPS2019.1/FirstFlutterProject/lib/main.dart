@@ -55,21 +55,7 @@ class _MainAppWidgetState extends State<MainAppWidget> {
               padding: EdgeInsets.all(24),
               child: SignInWidget(
                 model: model,
-                callback: (model) {
-                  this.model = model;
-
-                  setState(() {
-                    isLoading = true;
-                  });
-
-                  Future.delayed(Duration(seconds: 3)).then((_) {
-                    setState(() {
-                      isLoading = false;
-                    });
-
-                    presentHomePage(context: context);
-                  });
-                },
+                callback: handleCallback,
               ),
             ),
           ),
@@ -79,6 +65,22 @@ class _MainAppWidgetState extends State<MainAppWidget> {
         ],
       ),
     );
+  }
+
+  handleCallback(SignInModel model) {
+    this.model = model;
+
+    setState(() {
+      isLoading = true;
+    });
+
+    Future.delayed(Duration(seconds: 3)).then((_) {
+      setState(() {
+        isLoading = false;
+      });
+
+      presentHomePage(context: context);
+    });
   }
 
   presentHomePage({BuildContext context}) {
@@ -110,10 +112,11 @@ class SignInWidget extends StatefulWidget {
 }
 
 class _SignInWidgetState extends State<SignInWidget> {
+  TextEditingController _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         CircleImage(
           height: 150,
@@ -143,14 +146,11 @@ class _SignInWidgetState extends State<SignInWidget> {
             Row(
               children: [
                 Text("Remember me"),
-                Checkbox(
-                  value: widget.model.rememberMe,
-                  onChanged: (value) {
-                    setState(() {
+                CustomCheckBox(
+                    enabled: widget.model.rememberMe,
+                    callback: (value) {
                       widget.model.rememberMe = value;
-                    });
-                  },
-                ),
+                    }),
               ],
             ),
             FlatButton(
@@ -179,6 +179,31 @@ class _SignInWidgetState extends State<SignInWidget> {
           ),
         )
       ],
+    );
+  }
+}
+
+class CustomCheckBox extends StatefulWidget {
+  bool enabled;
+  final Function callback;
+
+  CustomCheckBox({this.enabled, this.callback});
+
+  @override
+  _CustomCheckBoxState createState() => _CustomCheckBoxState();
+}
+
+class _CustomCheckBoxState extends State<CustomCheckBox> {
+  @override
+  Widget build(BuildContext context) {
+    return Checkbox(
+      value: widget.enabled,
+      onChanged: (value) {
+        widget.callback(value);
+        setState(() {
+          widget.enabled = value;
+        });
+      },
     );
   }
 }
