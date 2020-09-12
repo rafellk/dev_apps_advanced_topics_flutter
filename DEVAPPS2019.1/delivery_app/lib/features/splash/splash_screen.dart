@@ -2,12 +2,16 @@ import 'package:delivery_app/common/app_colors/app_colors.dart';
 import 'package:delivery_app/common/components/default_background/default_background.dart';
 import 'package:delivery_app/common/components/default_button/default_button.dart';
 import 'package:delivery_app/common/styles/styles.dart';
-import 'package:delivery_app/features/categories_page/categories_page.dart';
 import 'package:delivery_app/features/home_tab/home_tab.dart';
+import 'package:delivery_app/features/splash/splash_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
+  final SplashViewModelInteface viewModel;
+
+  SplashScreen({this.viewModel});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,11 +19,11 @@ class SplashScreen extends StatelessWidget {
       children: [
         DefaultBackground(
           color: AppColors.splashBackgroundColor,
-          imageName: "resources/images/splash_background.png",
+          imageName: viewModel.defaultBackgroundImage,
         ),
         Container(
             padding: EdgeInsets.only(left: 20, top: 63),
-            child: Image.asset("resources/images/logo.png")),
+            child: Image.asset(viewModel.logoImage)),
         Positioned(
           bottom: 0,
           child: Container(
@@ -35,12 +39,12 @@ class SplashScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset("resources/images/splash_icon.png"),
+                    Image.asset(viewModel.splashIconImage),
                     SizedBox(
                       height: 24,
                     ),
                     Text(
-                      "Non-Contact Deliveries",
+                      viewModel.title,
                       textAlign: TextAlign.center,
                       style: Styles.headerText,
                     ),
@@ -48,7 +52,7 @@ class SplashScreen extends StatelessWidget {
                       height: 24,
                     ),
                     Text(
-                      "When placing an order, select the option Contactless delivery and the courier will leave your order at the door",
+                      viewModel.description,
                       textAlign: TextAlign.center,
                       style: Styles.secondaryText,
                     ),
@@ -56,13 +60,13 @@ class SplashScreen extends StatelessWidget {
                       height: 48,
                     ),
                     DefaultButton(
-                      text: "ORDER NOW",
+                      text: viewModel.orderNowButtonTitle,
                       callback: () {
                         navigateToCategoriesPage(context: context);
                       },
                     ),
                     DefaultButton(
-                      text: "DISMISS",
+                      text: viewModel.dismissButtonTitle,
                       callback: () {
                         navigateToCategoriesPage(context: context);
                       },

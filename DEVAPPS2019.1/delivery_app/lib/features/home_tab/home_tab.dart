@@ -1,5 +1,7 @@
 import 'package:delivery_app/common/app_colors/app_colors.dart';
 import 'package:delivery_app/features/categories_page/categories_page.dart';
+import 'package:delivery_app/features/categories_page/categories_view_model.dart';
+import 'package:delivery_app/services/service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +21,9 @@ class HomeTab extends StatelessWidget {
                   Icon(Icons.person, color: AppColors.tabIconSelectedColor)),
         ]),
         tabBuilder: (context, index) {
-          return CategoriesPage();
+          return CategoriesPage(
+            viewModel: CategoriesViewModel(service: Service()),
+          );
         });
   }
 }

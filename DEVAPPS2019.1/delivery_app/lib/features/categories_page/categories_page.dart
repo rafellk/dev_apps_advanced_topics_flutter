@@ -5,25 +5,37 @@ import 'package:delivery_app/common/components/default_background/default_backgr
 import 'package:delivery_app/common/components/default_navigation/default_navigation.dart';
 import 'package:delivery_app/common/components/search_text_field/search_text_field.dart';
 import 'package:delivery_app/common/styles/styles.dart';
+import 'package:delivery_app/features/categories_page/categories_view_model.dart';
 import 'package:delivery_app/features/food_page/food_page.dart';
+import 'package:delivery_app/features/food_page/food_view_model.dart';
 import 'package:delivery_app/models/category.dart';
-import 'package:delivery_app/services/service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesPage extends StatefulWidget {
+  CategoriesViewModelInterface viewModel;
+
+  CategoriesPage({this.viewModel});
+
   @override
   _CategoriesPageState createState() => _CategoriesPageState();
 }
 
 class _CategoriesPageState extends State<CategoriesPage> {
-  bool _isLoading = false;
-  List<Category> categories = [];
+  CategoriesAdapter adapter;
 
   @override
   void initState() {
     super.initState();
-    _fetchCategories();
+    adapter = widget.viewModel.adapter;
+
+    widget.viewModel.didUpdate = (adapter) {
+      setState(() {
+        this.adapter = adapter;
+      });
+    };
+
+    widget.viewModel.fetchCategories();
   }
 
   @override
@@ -37,11 +49,11 @@ class _CategoriesPageState extends State<CategoriesPage> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              DefaultNavigation(text: "Categories"),
+              DefaultNavigation(text: adapter.title),
               SizedBox(height: 24),
               SearchTextField(),
               SizedBox(height: 8),
-              categories.isEmpty
+              adapter.categories.isEmpty
                   ? SizedBox.shrink()
                   : Expanded(
                       child: Padding(
@@ -50,14 +62,15 @@ class _CategoriesPageState extends State<CategoriesPage> {
                             crossAxisCount: 2,
                             mainAxisSpacing: 20,
                             crossAxisSpacing: 20,
-                            children: categories
+                            children: adapter.categories
                                 .map((category) => GridViewItem(
                                       category: category,
                                       callback: () {
                                         Navigator.of(context)
                                             .push(MaterialPageRoute(
                                                 builder: (context) => FoodPage(
-                                                      category: category,
+                                                      viewModel: FoodViewModel(
+                                                          category: category),
                                                     )));
                                       },
                                     ))
@@ -66,7 +79,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                     ),
             ],
           ),
-          _isLoading
+          adapter.isLoading
               ? Center(child: CupertinoActivityIndicator())
               : SizedBox.shrink()
         ],
@@ -74,24 +87,24 @@ class _CategoriesPageState extends State<CategoriesPage> {
     );
   }
 
-  _fetchCategories() {
-    setState(() {
-      _isLoading = true;
-    });
+  // _fetchCategories() {
+  //   setState(() {
+  //     _isLoading = true;
+  //   });
 
-    Service.getCategories().then((response) {
-      var json = jsonDecode(response.body)["categories"];
+  //   Service.getCategories().then((response) {
+  //     var json = jsonDecode(response.body)["categories"];
 
-      categories = [];
-      for (var categoryJson in json) {
-        categories.add(Category.fromJson(categoryJson));
-      }
+  //     categories = [];
+  //     for (var categoryJson in json) {
+  //       categories.add(Category.fromJson(categoryJson));
+  //     }
 
-      setState(() {
-        _isLoading = false;
-      });
-    });
-  }
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //   });
+  // }
 }
 
 class GridViewItem extends StatelessWidget {

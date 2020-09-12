@@ -3,15 +3,37 @@ import 'package:delivery_app/common/components/default_background/default_backgr
 import 'package:delivery_app/common/components/default_navigation/default_navigation.dart';
 import 'package:delivery_app/common/components/search_text_field/search_text_field.dart';
 import 'package:delivery_app/common/styles/styles.dart';
-import 'package:delivery_app/models/category.dart';
+import 'package:delivery_app/features/cart_page/cart_page.dart';
+import 'package:delivery_app/features/favorites_page/favorites_page.dart';
+import 'package:delivery_app/features/food_page/food_view_model.dart';
 import 'package:delivery_app/models/item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class FoodPage extends StatelessWidget {
-  final Category category;
+class FoodPage extends StatefulWidget {
+  final FoodViewModelInterface viewModel;
 
-  FoodPage({this.category});
+  FoodPage({this.viewModel});
+
+  @override
+  _FoodPageState createState() => _FoodPageState();
+}
+
+class _FoodPageState extends State<FoodPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    widget.viewModel.navigateToFavorites = () {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => FavoritesPage()));
+    };
+
+    widget.viewModel.navigateToCart = () {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => CartPage()));
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +46,7 @@ class FoodPage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              DefaultNavigation(text: "Vegetables"),
+              DefaultNavigation(text: widget.viewModel.category.title),
               SizedBox(height: 24),
               SearchTextField(),
               SizedBox(height: 8),
@@ -32,9 +54,13 @@ class FoodPage extends StatelessWidget {
                   child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: ListView.builder(
-                    itemCount: category.items.length,
+                    itemCount: widget.viewModel.category.items.length,
                     itemBuilder: (context, index) {
-                      return FoodListItem(item: category.items[index]);
+                      return FoodListItem(
+                          item: widget.viewModel.category.items[index],
+                          didTapFavorites: () =>
+                              widget.viewModel.didTapFavorites(),
+                          didTapCart: () => widget.viewModel.didTapCart());
                     }),
               ))
             ],
@@ -47,8 +73,12 @@ class FoodPage extends StatelessWidget {
 
 class FoodListItem extends StatelessWidget {
   final Item item;
+  final Function didTapFavorites;
+  final Function didTapCart;
 
-  const FoodListItem({Key key, this.item}) : super(key: key);
+  const FoodListItem(
+      {Key key, this.item, this.didTapFavorites, this.didTapCart})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +126,11 @@ class FoodListItem extends StatelessWidget {
                       child: IconButton(
                         color: AppColors.textSecondaryColor,
                         icon: Icon(CupertinoIcons.heart),
-                        onPressed: () {},
+                        onPressed: () {
+                          if (didTapFavorites != null) {
+                            didTapFavorites();
+                          }
+                        },
                       ),
                     ),
                     Container(
@@ -109,7 +143,11 @@ class FoodListItem extends StatelessWidget {
                       child: IconButton(
                         color: Colors.white,
                         icon: Icon(CupertinoIcons.shopping_cart),
-                        onPressed: () {},
+                        onPressed: () {
+                          if (didTapCart != null) {
+                            didTapCart();
+                          }
+                        },
                       ),
                     ),
                   ],
