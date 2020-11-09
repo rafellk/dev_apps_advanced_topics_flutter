@@ -111,11 +111,12 @@ class GridViewItem extends StatelessWidget {
   final Category category;
   final Function callback;
 
-  const GridViewItem({Key key, this.category, this.callback}) : super(key: key);
+  const GridViewItem({this.category, this.callback});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      key: Key(category.title),
       onTap: callback,
       child: Container(
         decoration: BoxDecoration(
@@ -125,14 +126,14 @@ class GridViewItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 100,
-              child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      topRight: Radius.circular(8)),
-                  child: Image.network(category.imageURL)),
-            ),
+            // Container(
+            //   height: 100,
+            //   child: ClipRRect(
+            //       borderRadius: BorderRadius.only(
+            //           topLeft: Radius.circular(8),
+            //           topRight: Radius.circular(8)),
+            //       child: Image.network(category.imageURL)),
+            // ),
             SizedBox(height: 16),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),

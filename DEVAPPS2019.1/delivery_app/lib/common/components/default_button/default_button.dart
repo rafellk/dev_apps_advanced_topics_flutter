@@ -6,13 +6,15 @@ import 'package:flutter/material.dart';
 enum DefaultButtonType { primary, secondary }
 
 class DefaultButton extends StatelessWidget {
+  final Key key;
   final DefaultButtonType type;
   final Function callback;
   final String text;
   final bool isLarge;
 
   const DefaultButton(
-      {this.type = DefaultButtonType.primary,
+      {this.key,
+      this.type = DefaultButtonType.primary,
       this.callback,
       this.text = "",
       this.isLarge = true});

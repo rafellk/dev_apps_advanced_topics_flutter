@@ -15,6 +15,7 @@ class DefaultNavigation extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           IconButton(
+            key: Key("navigatorBack"),
             iconSize: 16,
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {

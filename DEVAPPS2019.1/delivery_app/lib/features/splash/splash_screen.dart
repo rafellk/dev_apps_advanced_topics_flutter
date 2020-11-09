@@ -23,7 +23,7 @@ class SplashScreen extends StatelessWidget {
         ),
         Container(
             padding: EdgeInsets.only(left: 20, top: 63),
-            child: Image.asset(viewModel.logoImage)),
+            child: Image.asset(viewModel.logoImage, key: Key("logo"))),
         Positioned(
           bottom: 0,
           child: Container(
@@ -60,6 +60,7 @@ class SplashScreen extends StatelessWidget {
                       height: 48,
                     ),
                     DefaultButton(
+                      key: Key("orderNowButton"),
                       text: viewModel.orderNowButtonTitle,
                       callback: () {
                         navigateToCategoriesPage(context: context);

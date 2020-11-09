@@ -141,6 +141,7 @@ class FoodListItem extends StatelessWidget {
                         color: AppColors.primaryButtonColor,
                       ),
                       child: IconButton(
+                        key: Key("shoppingCart"),
                         color: Colors.white,
                         icon: Icon(CupertinoIcons.shopping_cart),
                         onPressed: () {
