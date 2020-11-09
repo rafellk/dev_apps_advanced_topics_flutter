@@ -1,8 +1,11 @@
 import 'package:delivery_app/common/utils/app_colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingPage extends StatelessWidget {
   build(BuildContext context) {
+    var buttonWidth = MediaQuery.of(context).size.width - 40;
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -23,9 +26,20 @@ class OnboardingPage extends StatelessWidget {
                   isSmall: true,
                   color: AppColors.secondaryTextColor),
               SizedBox(height: 48),
-              FlatButton(onPressed: () {}, child: Text("ORDER NOW")),
+              Container(
+                width: buttonWidth,
+                child: CupertinoButton(
+                  onPressed: () {},
+                  child: Text("ORDER NOW"),
+                  color: AppColors.primaryButtonColor,
+                ),
+              ),
               SizedBox(height: 4),
-              FlatButton(onPressed: () {}, child: Text("DISMISS")),
+              Container(
+                width: buttonWidth,
+                child:
+                    CupertinoButton(onPressed: () {}, child: Text("DISMISS")),
+              )
             ],
           ),
         ),
