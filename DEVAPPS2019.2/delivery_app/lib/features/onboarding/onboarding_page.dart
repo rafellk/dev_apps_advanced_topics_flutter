@@ -1,5 +1,6 @@
 import 'package:delivery_app/common/default_background/default_background.dart';
 import 'package:delivery_app/common/utils/app_colors.dart';
+import 'package:delivery_app/features/home/home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -18,13 +19,13 @@ class OnboardingPage extends StatelessWidget {
             height: 80,
             width: 80,
           ),
-          createBottomWidget(buttonWidth: buttonWidth)
+          createBottomWidget(buttonWidth: buttonWidth, context: context)
         ],
       ),
     );
   }
 
-  Widget createBottomWidget({double buttonWidth}) {
+  Widget createBottomWidget({double buttonWidth, BuildContext context}) {
     return Positioned(
       bottom: 0,
       right: 0,
@@ -56,7 +57,9 @@ class OnboardingPage extends StatelessWidget {
                 Container(
                   width: buttonWidth,
                   child: CupertinoButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      navigateToHomePage(context: context);
+                    },
                     child: createButtonText(
                         data: "ORDER NOW", color: Colors.white),
                     color: AppColors.primaryButtonColor,
@@ -66,7 +69,9 @@ class OnboardingPage extends StatelessWidget {
                 Container(
                   width: buttonWidth,
                   child: CupertinoButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        navigateToHomePage(context: context);
+                      },
                       child: createButtonText(
                           data: "DISMISS",
                           color: AppColors.secondaryTextColor)),
@@ -77,6 +82,11 @@ class OnboardingPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  navigateToHomePage({BuildContext context}) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (BuildContext context) => HomePage()));
   }
 
   Text createButtonText({String data, Color color}) {
