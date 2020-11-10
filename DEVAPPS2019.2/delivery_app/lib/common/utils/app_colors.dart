@@ -5,4 +5,7 @@ class AppColors {
   static Color secondaryTextColor = Color(0xff9586A8);
 
   static Color primaryButtonColor = Color(0xff0BCE83);
+  static Color onboardingBackgroundColor = Color(0xff8C33FF);
+
+  static Color defaultBackgroundColor = Color(0xffF6F5F5);
 }
