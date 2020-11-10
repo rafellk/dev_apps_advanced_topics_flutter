@@ -11,7 +11,10 @@ class OnboardingPage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          DefaultBackground(),
+          DefaultBackground(
+            color: AppColors.onboardingBackgroundColor,
+            imageName: "onboarding_background_image",
+          ),
           Positioned(
             child: Image.asset("images/logo.png"),
             top: 63,

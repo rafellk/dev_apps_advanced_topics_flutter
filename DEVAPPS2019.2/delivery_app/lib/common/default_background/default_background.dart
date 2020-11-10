@@ -1,15 +1,20 @@
-import 'package:delivery_app/common/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class DefaultBackground extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  final Color color;
+  final String imageName;
+
+  DefaultBackground({this.color, this.imageName});
+
+  build(BuildContext context) {
     return Stack(
       children: [
         Container(
-          color: AppColors.onboardingBackgroundColor,
+          color: color,
         ),
-        Image.asset("images/onboarding_background_image.png"),
+        imageName != null
+            ? Image.asset("images/$imageName.png")
+            : SizedBox.shrink(),
       ],
     );
   }
