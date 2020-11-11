@@ -16,12 +16,74 @@ class HomePage extends StatelessWidget {
                   title: "Categories",
                   placeholder: "Search",
                   textChanged: () {},
+                ),
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.only(top: 21),
+                    child: GridView.count(
+                      crossAxisCount: 2,
+                      children: [
+                        CategoryGridCell(),
+                        CategoryGridCell(),
+                      ],
+                    ),
+                  ),
                 )
               ],
             ),
           )
         ],
       ),
+    );
+  }
+}
+
+class CategoryGridCell extends StatelessWidget {
+  build(BuildContext context) {
+    return Container(
+      // color: Colors.grey,
+      height: 200,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset("images/media.png"),
+          SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    createText(
+                        data: "Vegetables",
+                        color: AppColors.primaryTextColor,
+                        isSmall: false),
+                    SizedBox(height: 10),
+                    createText(
+                        data: "(43)",
+                        color: AppColors.secondaryTextColor,
+                        isSmall: true),
+                  ],
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Text createText({String data, bool isSmall, Color color}) {
+    var textStyle = TextStyle(
+        fontSize: isSmall ? 12 : 17,
+        color: color,
+        fontWeight: isSmall ? FontWeight.w300 : FontWeight.bold);
+
+    return Text(
+      data,
+      style: textStyle,
+      textAlign: TextAlign.center,
     );
   }
 }

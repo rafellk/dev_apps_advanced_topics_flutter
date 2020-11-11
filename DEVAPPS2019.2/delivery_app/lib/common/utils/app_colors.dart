@@ -8,4 +8,6 @@ class AppColors {
   static Color onboardingBackgroundColor = Color(0xff8C33FF);
 
   static Color defaultBackgroundColor = Color(0xffF6F5F5);
+
+  static Color defaultTextFieldBorderColor = Color(0xffD9D0E3);
 }

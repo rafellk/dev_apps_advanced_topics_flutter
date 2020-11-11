@@ -1,4 +1,5 @@
 import 'package:delivery_app/common/utils/app_colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DefaultNavigation extends StatelessWidget {
@@ -26,8 +27,42 @@ class DefaultNavigation extends StatelessWidget {
                   fontSize: 30,
                   color: AppColors.primaryTextColor,
                   fontWeight: FontWeight.bold)),
+        ),
+        SizedBox(
+          height: 24,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: SearchTextField(
+            placeholder: "Search",
+          ),
         )
       ],
     );
+  }
+}
+
+class SearchTextField extends StatelessWidget {
+  final Function textChanged;
+  final String placeholder;
+
+  SearchTextField({this.placeholder, this.textChanged});
+
+  build(BuildContext context) {
+    return Container(
+        height: 48,
+        child: CupertinoTextField(
+          prefix: Padding(
+            padding: EdgeInsets.only(left: 20, right: 16),
+            child: Image.asset("images/search.png"),
+          ),
+          placeholder: placeholder,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.horizontal(
+                  left: Radius.circular(27), right: Radius.circular(27)),
+              border: Border.all(
+                  color: AppColors.defaultTextFieldBorderColor, width: 1)),
+        ));
   }
 }
