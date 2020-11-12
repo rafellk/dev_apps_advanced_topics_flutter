@@ -5,9 +5,14 @@ import 'package:flutter/material.dart';
 class DefaultNavigation extends StatelessWidget {
   final String title;
   final String placeholder;
+  final bool isLargeTitle;
   final Function textChanged;
 
-  DefaultNavigation({this.title, this.placeholder, this.textChanged});
+  DefaultNavigation(
+      {this.title,
+      this.placeholder,
+      this.isLargeTitle = true,
+      this.textChanged});
 
   build(BuildContext context) {
     return Column(
@@ -24,7 +29,7 @@ class DefaultNavigation extends StatelessWidget {
           padding: EdgeInsets.only(left: 20),
           child: Text(title,
               style: TextStyle(
-                  fontSize: 30,
+                  fontSize: isLargeTitle ? 30 : 26,
                   color: AppColors.primaryTextColor,
                   fontWeight: FontWeight.bold)),
         ),
