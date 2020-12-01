@@ -1,191 +1,37 @@
+import 'package:delivery_app/common/datasource/datasource.dart';
 import 'package:delivery_app/common/default_background/default_background.dart';
 import 'package:delivery_app/common/default_navigation/default_navigation.dart';
 import 'package:delivery_app/common/utils/app_colors.dart';
 import 'package:delivery_app/features/home/home_page.dart';
+import 'package:delivery_app/features/item_description/item_description.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SubCategoryModel {
+class ItemModel {
   String title;
   double price;
   String currency;
   String unit;
   bool isFavorite;
-  String imageName;
+  List<String> imageNames;
+  String originalCountry;
+  String fullDescription;
+  String extraInformation;
 
-  SubCategoryModel(
+  ItemModel(
       {this.title,
       this.price,
       this.currency,
       this.unit,
       this.isFavorite,
-      this.imageName});
+      this.imageNames,
+      this.fullDescription,
+      this.extraInformation,
+      this.originalCountry});
 }
 
 class SubCategoryPage extends StatelessWidget {
   final CategoryModel model;
-  final List<SubCategoryModel> dataSource = [
-    SubCategoryModel(
-        title: "Boston Lettuce",
-        price: 1.10,
-        currency: "€",
-        unit: "piece",
-        isFavorite: false,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Purple Cauliflower",
-        price: 1.85,
-        currency: "€",
-        unit: "kg",
-        isFavorite: true,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Boston Lettuce",
-        price: 1.10,
-        currency: "€",
-        unit: "piece",
-        isFavorite: false,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Purple Cauliflower",
-        price: 1.85,
-        currency: "€",
-        unit: "kg",
-        isFavorite: true,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Boston Lettuce",
-        price: 1.10,
-        currency: "€",
-        unit: "piece",
-        isFavorite: false,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Purple Cauliflower",
-        price: 1.85,
-        currency: "€",
-        unit: "kg",
-        isFavorite: true,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Boston Lettuce",
-        price: 1.10,
-        currency: "€",
-        unit: "piece",
-        isFavorite: false,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Purple Cauliflower",
-        price: 1.85,
-        currency: "€",
-        unit: "kg",
-        isFavorite: true,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Boston Lettuce",
-        price: 1.10,
-        currency: "€",
-        unit: "piece",
-        isFavorite: false,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Purple Cauliflower",
-        price: 1.85,
-        currency: "€",
-        unit: "kg",
-        isFavorite: true,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Boston Lettuce",
-        price: 1.10,
-        currency: "€",
-        unit: "piece",
-        isFavorite: false,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Purple Cauliflower",
-        price: 1.85,
-        currency: "€",
-        unit: "kg",
-        isFavorite: true,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Boston Lettuce",
-        price: 1.10,
-        currency: "€",
-        unit: "piece",
-        isFavorite: false,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Purple Cauliflower",
-        price: 1.85,
-        currency: "€",
-        unit: "kg",
-        isFavorite: true,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Boston Lettuce",
-        price: 1.10,
-        currency: "€",
-        unit: "piece",
-        isFavorite: false,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Purple Cauliflower",
-        price: 1.85,
-        currency: "€",
-        unit: "kg",
-        isFavorite: true,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Boston Lettuce",
-        price: 1.10,
-        currency: "€",
-        unit: "piece",
-        isFavorite: false,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Purple Cauliflower",
-        price: 1.85,
-        currency: "€",
-        unit: "kg",
-        isFavorite: true,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Boston Lettuce",
-        price: 1.10,
-        currency: "€",
-        unit: "piece",
-        isFavorite: false,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Purple Cauliflower",
-        price: 1.85,
-        currency: "€",
-        unit: "kg",
-        isFavorite: true,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Boston Lettuce",
-        price: 1.10,
-        currency: "€",
-        unit: "piece",
-        isFavorite: false,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Purple Cauliflower",
-        price: 1.85,
-        currency: "€",
-        unit: "kg",
-        isFavorite: true,
-        imageName: "images/subcategory_placeholder.png"),
-    SubCategoryModel(
-        title: "Savoy Cabbage",
-        price: 1.45,
-        currency: "€",
-        unit: "g",
-        isFavorite: true,
-        imageName: "images/subcategory_placeholder.png"),
-  ];
 
   SubCategoryPage({@required this.model});
 
@@ -208,9 +54,17 @@ class SubCategoryPage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: ListView.builder(
-                      itemCount: dataSource.length,
+                      itemCount: DataSource.models.length,
                       itemBuilder: (context, index) {
-                        return SubCategoryCell(model: dataSource[index]);
+                        var model = DataSource.models[index];
+                        return GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => ItemDescriptionPage(
+                                        model: model,
+                                      )));
+                            },
+                            child: SubCategoryCell(model: model));
                       }),
                 ),
               )
@@ -220,15 +74,41 @@ class SubCategoryPage extends StatelessWidget {
       ],
     ));
   }
+
+  Future<void> _showiOSAddToCartDialog({BuildContext context}) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text("Success"),
+          content: Text("The item was added to the cart!!!"),
+          actions: [
+            CupertinoDialogAction(
+              child: Text("Ok"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
 }
 
 enum SubCategoryTextSize { small, medium, large }
 
-class SubCategoryCell extends StatelessWidget {
-  final SubCategoryModel model;
+class SubCategoryCell extends StatefulWidget {
+  ItemModel model;
 
   SubCategoryCell({@required this.model});
 
+  @override
+  _SubCategoryCellState createState() => _SubCategoryCellState();
+}
+
+class _SubCategoryCellState extends State<SubCategoryCell> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -238,24 +118,26 @@ class SubCategoryCell extends StatelessWidget {
           Container(
               height: 110,
               width: 110 * 1.3828125,
-              child: Image.asset("images/subcategory_placeholder.png")),
+              child: Image.asset(widget.model.imageNames.first)),
           SizedBox(width: 20),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _createText(data: model.title, size: SubCategoryTextSize.medium),
+              _createText(
+                  data: widget.model.title, size: SubCategoryTextSize.medium),
               SizedBox(
                 height: 12,
               ),
               Row(
                 children: [
                   _createText(
-                      data: "${model.price}", size: SubCategoryTextSize.large),
+                      data: "${widget.model.price}",
+                      size: SubCategoryTextSize.large),
                   SizedBox(
                     width: 2,
                   ),
                   _createText(
-                      data: "${model.currency} / ${model.unit}",
+                      data: "${widget.model.currency} / ${widget.model.unit}",
                       size: SubCategoryTextSize.small),
                 ],
               ),
@@ -264,19 +146,31 @@ class SubCategoryCell extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Container(
-                    height: 40,
-                    width: 60,
-                    child: Image.asset(
-                        "images/${model.isFavorite ? "is_favorite" : "non_favorite"}.png"),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        widget.model.isFavorite = !widget.model.isFavorite;
+                      });
+                    },
+                    child: Container(
+                      height: 40,
+                      width: 60,
+                      child: Image.asset(
+                          "images/${widget.model.isFavorite ? "is_favorite" : "non_favorite"}.png"),
+                    ),
                   ),
                   SizedBox(
                     width: 10,
                   ),
-                  Container(
-                    height: 40,
-                    width: 60,
-                    child: Image.asset("images/cart.png"),
+                  GestureDetector(
+                    onTap: () {
+                      _showiOSAddToCartDialog(context: context);
+                    },
+                    child: Container(
+                      height: 40,
+                      width: 60,
+                      child: Image.asset("images/cart.png"),
+                    ),
                   ),
                 ],
               )
@@ -284,6 +178,27 @@ class SubCategoryCell extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> _showiOSAddToCartDialog({BuildContext context}) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text("Success"),
+          content: Text("The item was added to the cart!!!"),
+          actions: [
+            CupertinoDialogAction(
+              child: Text("Ok"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
     );
   }
 
